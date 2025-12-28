@@ -28,17 +28,17 @@
                             {% csrf_token %}
                             <div class="mb-3">
                                 <label for="source" class="form-label">Source</label>
-                                <input type="text" id="source" name="source" class="form-control" placeholder="e.g., Salary, Freelance" required>
+                                <input type="text" id="source" name="source" class="form-control" placeholder="e.g., Salary, Freelance" value="{% if cash %}{{ cash.source }}{% endif %}" required>
                             </div>
                             <div class="mb-3">
                                 <label for="amount" class="form-label">Amount ($)</label>
-                                <input type="number" id="amount" name="amount" class="form-control" step="0.01" placeholder="0.00" required>
+                                <input type="number" id="amount" name="amount" class="form-control" step="0.01" placeholder="0.00" value="{% if cash %}{{ cash.amount }}{% endif %}" required>
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Optional details" required></textarea>
+                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Optional details" required>{% if cash %}{{ cash.description }}{% endif %}</textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Add Cash</button>
+                            <button type="submit" class="btn btn-primary w-100">{% if cash %}Update Cash{% else %}Add Cash{% endif %}</button>
                         </form>
                         <div class="text-center mt-3">
                             <a href="{% url 'dashboard' %}" class="btn btn-primary w-30">Back to Dashboard</a>

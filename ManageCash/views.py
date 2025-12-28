@@ -81,6 +81,51 @@ def add_expense_view(request):
         return redirect('dashboard')
     return render(request, 'add_expense.html')
 
+@login_required
+def edit_cash_view(request, pk):
+    cash = AddCash.objects.get(pk=pk, user=request.user)
+    if request.method == 'POST':
+        cash.source = request.POST['source']
+        cash.amount = request.POST['amount']
+        cash.description = request.POST['description']
+        cash.save()
+        messages.success(request, 'Cash transaction updated successfully.')
+        return redirect('dashboard')
+    context = {'cash': cash}
+    return render(request, 'add_cash.html', context)
+
+@login_required
+def edit_expense_view(request, pk):
+    expense = Expense.objects.get(pk=pk, user=request.user)
+    if request.method == 'POST':
+        expense.description = request.POST['description']
+        expense.amount = request.POST['amount']
+        expense.save()
+        messages.success(request, 'Expense updated successfully.')
+        return redirect('dashboard')
+    context = {'expense': expense}
+    return render(request, 'add_expense.html', context)
+
+@login_required
+def delete_cash_view(request, pk):
+    cash = AddCash.objects.get(pk=pk, user=request.user)
+    if request.method == 'POST':
+        cash.delete()
+        messages.success(request, 'Cash transaction deleted successfully.')
+        return redirect('dashboard')
+    context = {'cash': cash}
+    return render(request, 'delete_confirm.html', context)
+
+@login_required
+def delete_expense_view(request, pk):
+    expense = Expense.objects.get(pk=pk, user=request.user)
+    if request.method == 'POST':
+        expense.delete()
+        messages.success(request, 'Expense deleted successfully.')
+        return redirect('dashboard')
+    context = {'expense': expense}
+    return render(request, 'delete_confirm.html', context)
+
 def logout_view(request):
     logout(request)
     return redirect('login')

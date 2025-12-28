@@ -57,7 +57,13 @@
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             {% for transaction in addcash_transactions %}
-                                <li class="list-group-item">{{ transaction.source }} - <strong>${{ transaction.amount }}</strong> - {{ transaction.datetime|date:"M d, Y H:i" }}</li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ transaction.source }} - <strong>${{ transaction.amount }}</strong> - {{ transaction.datetime|date:"M d, Y H:i" }}
+                                    <div>
+                                        <a href="{% url 'edit_cash' transaction.pk %}" class="btn btn-sm btn-warning me-1">Edit</a>
+                                        <a href="{% url 'delete_cash' transaction.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                                    </div>
+                                </li>
                             {% empty %}
                                 <li class="list-group-item">No cash added yet.</li>
                             {% endfor %}
@@ -73,7 +79,13 @@
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             {% for transaction in expense_transactions %}
-                                <li class="list-group-item">{{ transaction.description }} - <strong>${{ transaction.amount }}</strong> - {{ transaction.datetime|date:"M d, Y H:i" }}</li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ transaction.description }} - <strong>${{ transaction.amount }}</strong> - {{ transaction.datetime|date:"M d, Y H:i" }}
+                                    <div>
+                                        <a href="{% url 'edit_expense' transaction.pk %}" class="btn btn-sm btn-warning me-1">Edit</a>
+                                        <a href="{% url 'delete_expense' transaction.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                                    </div>
+                                </li>
                             {% empty %}
                                 <li class="list-group-item">No expenses yet.</li>
                             {% endfor %}

@@ -28,13 +28,13 @@
                             {% csrf_token %}
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="e.g., Groceries, Rent" required></textarea>
+                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="e.g., Groceries, Rent" required>{% if expense %}{{ expense.description }}{% endif %}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="amount" class="form-label">Amount ($)</label>
-                                <input type="number" id="amount" name="amount" class="form-control" step="0.01" placeholder="0.00" required>
+                                <input type="number" id="amount" name="amount" class="form-control" step="0.01" placeholder="0.00" value="{% if expense %}{{ expense.amount }}{% endif %}" required>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Add Expense</button>
+                            <button type="submit" class="btn btn-primary w-100">{% if expense %}Update Expense{% else %}Add Expense{% endif %}</button>
                         </form>
                         <div class="text-center mt-3">
                             <a href="{% url 'dashboard' %}" class="btn btn-primary w-30">Back to Dashboard</a>
